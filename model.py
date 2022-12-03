@@ -28,4 +28,6 @@ class FunkSVD(object):
         return loss, grad
 
     def predict(self, i, j):
+        if i >= self.params['P'].shape[0]:
+            return np.means(self.params['Q'][:, j])
         return np.dot(self.params['P'][i, :], self.params['Q'][:, j])
