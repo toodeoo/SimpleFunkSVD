@@ -19,12 +19,12 @@ class FunkSVD(object):
         for _ in range(X_batch.shape[0]):
             i, j = X_batch[_][0], X_batch[_][1]
             if self.R[i, j] > 0:
-                diff = np.power(self.R[i, j] - np.dot(self.params['P'][i, :], self.params['Q'][:, j]), 2) / 2
+                diff = np.power(self.R[i, j] - np.dot(self.params['P'][i, :], self.params['Q'][:, j]), 2) / 2 + \
+                    self.reg * (np.linalg.norm(self.params['P'][i, :], 2) + np.linalg.norm(self.params['Q'][:, j], 2))/2
                 loss += diff
-                grad_P[i, :] = -1 * diff * self.params['Q'][:, j]
-                gran_Q[:, j] = -1 * diff * self.params['P'][i, :]
+                grad_P[i, :] = -1 * diff * self.params['Q'][:, j] + self.reg * self.params['P'][i, :]
+                gran_Q[:, j] = -1 * diff * self.params['P'][i, :] + self.reg * self.params['Q'][:, j]
         grad['P'], grad['Q'] = grad_P, gran_Q
-        loss += self.reg * (np.linalg.norm(self.params['P'], 2) + np.linalg.norm(self.params['Q'], 2)) ** 2
         return loss, grad
 
     def predict(self, i, j):
