@@ -45,7 +45,7 @@ class Solver(object):
         batch_mask_col = np.random.choice(num_col, self.batch_size)
         X_batch = np.stack((np.array(batch_mask_row), np.array(batch_mask_col)), axis=1).reshape(self.batch_size, 2)
         loss, grads = self.model.loss(X_batch)
-        if loss != 0:
+        if loss > 0:
             self.loss_history.append(loss)
 
         for p, w in self.model.params.items():
