@@ -31,9 +31,9 @@ class FunkSVD(object):
 
     def predict(self, i, j):
         if i >= self.params['P'].shape[0]:
-            return np.means(self.params['Q'][:, j])
+            return np.mean(self.params['Q'][:, j])
         elif j >= self.params['Q'].shape[1]:
-            return np.means(self.params['P'][i, :])
+            return np.mean(self.params['P'][i, :])
         return np.dot(self.params['P'][i, :], self.params['Q'][:, j])
 
 
