@@ -2,7 +2,7 @@ import numpy as np
 
 
 class FunkSVD(object):
-    def __init__(self, R, K=20, reg_p=0, reg_q=0):
+    def __init__(self, R, K, reg_p=0, reg_q=0):
         self.R = R
         self.N = R.shape[0]
         self.M = R.shape[1]
@@ -43,8 +43,8 @@ class FunkSVD(object):
 
 
 class BiasSVD(FunkSVD):
-    def __init__(self, R):
-        super().__init__(R)
+    def __init__(self, R, K):
+        super().__init__(R, K)
         self.params['b_p'] = np.zeros(self.N)
         self.params['b_q'] = np.zeros(self.M)
 
