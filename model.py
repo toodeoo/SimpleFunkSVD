@@ -43,8 +43,8 @@ class FunkSVD(object):
 
 
 class BiasSVD(FunkSVD):
-    def __init__(self, R, K):
-        super().__init__(R, K)
+    def __init__(self, R, K, reg_p=0, reg_q=0):
+        super().__init__(R, K, reg_p, reg_q)
         self.params['b_p'] = np.zeros(self.N)
         self.params['b_q'] = np.zeros(self.M)
 
